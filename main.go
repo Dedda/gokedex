@@ -71,7 +71,7 @@ Welcome to the Gokedex!
 Usage:`)
 	fmt.Println()
 	for _, cmd := range allCommands() {
-		fmt.Println(fmt.Sprintf("%s: %s", cmd.name, cmd.description))
+		fmt.Printf("%s: %s", cmd.name, cmd.description)
 	}
 	return nil
 }
@@ -114,7 +114,7 @@ func exploreCommand(args []string) error {
 	}
 	fmt.Println("Found PokemonSummary:")
 	for _, p := range info.PokemonEncounters {
-		fmt.Println(fmt.Sprintf("- %s", p.Pokemon.Name))
+		fmt.Printf("- %s", p.Pokemon.Name)
 	}
 	return nil
 }
@@ -125,7 +125,7 @@ func catchCommand(args []string) error {
 		return nil
 	}
 	name := args[0]
-	fmt.Println(fmt.Sprintf("Throwing a Pokeball at %s...", name))
+	fmt.Printf("Throwing a Pokeball at %s...", name)
 	pokemon, err := gokeapi.LoadPokemonInfo(name)
 	if err != nil {
 		return err
@@ -135,10 +135,10 @@ func catchCommand(args []string) error {
 	catch := luck < chance
 	if catch {
 		gokedex[name] = pokemon
-		fmt.Println(fmt.Sprintf("%s was caught!", name))
+		fmt.Printf("%s was caught!", name)
 		return nil
 	}
-	fmt.Println(fmt.Sprintf("%s escaped!", name))
+	fmt.Printf("%s escaped!", name)
 	return nil
 }
 
@@ -153,16 +153,16 @@ func inspectCommand(args []string) error {
 		fmt.Println("you have not caught that pokemon")
 		return nil
 	}
-	fmt.Println(fmt.Sprintf("Name: %s", pokemon.Name))
-	fmt.Println(fmt.Sprintf("Height: %d", pokemon.Height))
-	fmt.Println(fmt.Sprintf("Weight: %d", pokemon.Weight))
+	fmt.Printf("Name: %s", pokemon.Name)
+	fmt.Printf("Height: %d", pokemon.Height)
+	fmt.Printf("Weight: %d", pokemon.Weight)
 	fmt.Println("Stats:")
 	for _, stat := range pokemon.Stats {
-		fmt.Println(fmt.Sprintf("- %s: %d", stat.Stat.Name, stat.BaseStat))
+		fmt.Printf("- %s: %d", stat.Stat.Name, stat.BaseStat)
 	}
 	fmt.Println("Types:")
 	for _, t := range pokemon.Types {
-		fmt.Println(fmt.Sprintf("- %s", t.Type.Name))
+		fmt.Printf("- %s", t.Type.Name)
 	}
 	return nil
 }
@@ -170,7 +170,7 @@ func inspectCommand(args []string) error {
 func gokedexCommand(args []string) error {
 	fmt.Println("Your Gokedex:")
 	for name, _ := range gokedex {
-		fmt.Println(fmt.Sprintf("- %s", name))
+		fmt.Printf("- %s", name)
 	}
 	return nil
 }
@@ -189,7 +189,7 @@ func main() {
 			continue
 		}
 		if err := cmd.callback(parts[1:]); err != nil {
-			fmt.Println(fmt.Sprintf("Error: %s", err.Error()))
+			fmt.Printf("Error: %s", err.Error())
 			break
 		}
 		fmt.Print("Gokedex > ")
