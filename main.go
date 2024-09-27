@@ -71,7 +71,7 @@ Welcome to the Gokedex!
 Usage:`)
 	fmt.Println()
 	for _, cmd := range allCommands() {
-		fmt.Printf("%s: %s", cmd.name, cmd.description)
+		fmt.Printf("%s: %s\n", cmd.name, cmd.description)
 	}
 	return nil
 }
@@ -114,7 +114,7 @@ func exploreCommand(args []string) error {
 	}
 	fmt.Println("Found PokemonSummary:")
 	for _, p := range info.PokemonEncounters {
-		fmt.Printf("- %s", p.Pokemon.Name)
+		fmt.Printf("- %s\n", p.Pokemon.Name)
 	}
 	return nil
 }
@@ -125,7 +125,7 @@ func catchCommand(args []string) error {
 		return nil
 	}
 	name := args[0]
-	fmt.Printf("Throwing a Pokeball at %s...", name)
+	fmt.Printf("Throwing a Pokeball at %s...\n", name)
 	pokemon, err := gokeapi.LoadPokemonInfo(name)
 	if err != nil {
 		return err
@@ -135,10 +135,10 @@ func catchCommand(args []string) error {
 	catch := luck < chance
 	if catch {
 		gokedex[name] = pokemon
-		fmt.Printf("%s was caught!", name)
+		fmt.Printf("%s was caught!\n", name)
 		return nil
 	}
-	fmt.Printf("%s escaped!", name)
+	fmt.Printf("%s escaped!\n", name)
 	return nil
 }
 
@@ -153,16 +153,16 @@ func inspectCommand(args []string) error {
 		fmt.Println("you have not caught that pokemon")
 		return nil
 	}
-	fmt.Printf("Name: %s", pokemon.Name)
-	fmt.Printf("Height: %d", pokemon.Height)
-	fmt.Printf("Weight: %d", pokemon.Weight)
+	fmt.Printf("Name: %s\n", pokemon.Name)
+	fmt.Printf("Height: %d\n", pokemon.Height)
+	fmt.Printf("Weight: %d\n", pokemon.Weight)
 	fmt.Println("Stats:")
 	for _, stat := range pokemon.Stats {
-		fmt.Printf("- %s: %d", stat.Stat.Name, stat.BaseStat)
+		fmt.Printf("- %s: %d\n", stat.Stat.Name, stat.BaseStat)
 	}
 	fmt.Println("Types:")
 	for _, t := range pokemon.Types {
-		fmt.Printf("- %s", t.Type.Name)
+		fmt.Printf("- %s\n", t.Type.Name)
 	}
 	return nil
 }
@@ -189,7 +189,7 @@ func main() {
 			continue
 		}
 		if err := cmd.callback(parts[1:]); err != nil {
-			fmt.Printf("Error: %s", err.Error())
+			fmt.Printf("Error: %s\n", err.Error())
 			break
 		}
 		fmt.Print("Gokedex > ")
